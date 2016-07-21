@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Chip">
+          <Key>
+            <PropertyRef Name="chip_id" />
+          </Key>
+          <Property Name="chip_imei" Type="nvarchar" MaxLength="30" />
+          <Property Name="chip_operadora" Type="nvarchar" MaxLength="10" />
+          <Property Name="chip_data_envio" Type="datetime" />
+          <Property Name="cli_id" Type="bigint" />
+          <Property Name="chip_status" Type="float" />
+          <Property Name="chip_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cli_id" />
+          </Key>
+          <Property Name="cli_id" Type="bigint" Nullable="false" />
+          <Property Name="cli_nome" Type="varchar" MaxLength="100" />
+          <Property Name="cli_rua" Type="varchar" MaxLength="100" />
+          <Property Name="cli_numero" Type="varchar" MaxLength="10" />
+          <Property Name="cli_bairro" Type="varchar" MaxLength="50" />
+          <Property Name="cidade_id" Type="int" />
+          <Property Name="cli_estado" Type="char" MaxLength="2" />
+          <Property Name="cli_telefone" Type="varchar" MaxLength="12" />
+          <Property Name="cli_cad_por" Type="varchar" MaxLength="50" />
+          <Property Name="cli_data_cad" Type="datetime" />
+          <Property Name="cli_telefone1" Type="varchar" MaxLength="12" />
+          <Property Name="emp_id" Type="int" />
+          <Property Name="cli_monitorado" Type="bit" />
+          <Property Name="cli_ultima_comunicacao" Type="datetime" />
+          <Property Name="cli_obs" Type="text" />
+          <Property Name="cli_data_cancelado_mon" Type="datetime" />
+          <Property Name="cli_comunicacao" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Chip_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Chip" Type="Self.Chip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Chip">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Chip" EntityType="Self.Chip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Chip_Cliente" Association="Self.FK_Chip_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Chip" EntitySet="Chip" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Chip">
+          <Key>
+            <PropertyRef Name="chip_id" />
+          </Key>
+          <Property Name="chip_imei" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="chip_operadora" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="chip_data_envio" Type="DateTime" Precision="3" />
+          <Property Name="cli_id" Type="Int64" />
+          <Property Name="chip_status" Type="Double" />
+          <Property Name="chip_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Chip_Cliente" FromRole="Chip" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cli_id" />
+          </Key>
+          <Property Name="cli_id" Type="Int64" Nullable="false" />
+          <Property Name="cli_nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cli_rua" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cli_numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cli_bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cidade_id" Type="Int32" />
+          <Property Name="cli_estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="cli_telefone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="cli_cad_por" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cli_data_cad" Type="DateTime" Precision="3" />
+          <Property Name="cli_telefone1" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="cli_monitorado" Type="Boolean" />
+          <Property Name="cli_ultima_comunicacao" Type="DateTime" Precision="3" />
+          <Property Name="cli_obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cli_data_cancelado_mon" Type="DateTime" Precision="3" />
+          <Property Name="cli_comunicacao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chip" Relationship="Self.FK_Chip_Cliente" FromRole="Cliente" ToRole="Chip" />
+        </EntityType>
+        <Association Name="FK_Chip_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Chip" Type="Self.Chip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Chip">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="monialEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Chip" EntityType="Self.Chip" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <AssociationSet Name="FK_Chip_Cliente" Association="Self.FK_Chip_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Chip" EntitySet="Chip" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="monialEntities">
+          <EntitySetMapping Name="Chip">
+            <EntityTypeMapping TypeName="Model.Chip">
+              <MappingFragment StoreEntitySet="Chip">
+                <ScalarProperty Name="chip_imei" ColumnName="chip_imei" />
+                <ScalarProperty Name="chip_operadora" ColumnName="chip_operadora" />
+                <ScalarProperty Name="chip_data_envio" ColumnName="chip_data_envio" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="chip_status" ColumnName="chip_status" />
+                <ScalarProperty Name="chip_id" ColumnName="chip_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="Model.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="cli_nome" ColumnName="cli_nome" />
+                <ScalarProperty Name="cli_rua" ColumnName="cli_rua" />
+                <ScalarProperty Name="cli_numero" ColumnName="cli_numero" />
+                <ScalarProperty Name="cli_bairro" ColumnName="cli_bairro" />
+                <ScalarProperty Name="cidade_id" ColumnName="cidade_id" />
+                <ScalarProperty Name="cli_estado" ColumnName="cli_estado" />
+                <ScalarProperty Name="cli_telefone" ColumnName="cli_telefone" />
+                <ScalarProperty Name="cli_cad_por" ColumnName="cli_cad_por" />
+                <ScalarProperty Name="cli_data_cad" ColumnName="cli_data_cad" />
+                <ScalarProperty Name="cli_telefone1" ColumnName="cli_telefone1" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="cli_monitorado" ColumnName="cli_monitorado" />
+                <ScalarProperty Name="cli_ultima_comunicacao" ColumnName="cli_ultima_comunicacao" />
+                <ScalarProperty Name="cli_obs" ColumnName="cli_obs" />
+                <ScalarProperty Name="cli_data_cancelado_mon" ColumnName="cli_data_cancelado_mon" />
+                <ScalarProperty Name="cli_comunicacao" ColumnName="cli_comunicacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

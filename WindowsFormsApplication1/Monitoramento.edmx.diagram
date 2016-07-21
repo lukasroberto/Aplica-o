@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1f10f4e108d34f3982c555881b61f0c9" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="monitoramentoModel.Chip" Width="1.5" PointX="7.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Cidade" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Cliente" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Cliente_Procedimentos" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Cliente_Servico" Width="1.5" PointX="10.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Cliente_Usuario_Alarme" Width="1.5" PointX="10.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Empresa" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Estado" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Evento" Width="1.5" PointX="8.25" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Leitor" Width="1.5" PointX="10.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Login" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.OS" Width="1.5" PointX="7.5" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.OS_Tecnico" Width="1.5" PointX="9.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Procedimentos" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Receptores" Width="1.5" PointX="8.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Servico_Tipo_Comunic" Width="1.5" PointX="12.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Servicos_Presdados" Width="1.5" PointX="8.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Tecnico" Width="1.5" PointX="7.5" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Tipo_Comunicacao" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="monitoramentoModel.Usuario_Alarme" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="monitoramentoModel.FK_Chip_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cidade_Estado" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Cidade" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Procedimentos_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Servico_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Usuario_Alarme_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Leitor_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_OS_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Procedimentos_Procedimentos" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Servico_Servicos_Presdados" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Servico_Tipo_Comunic_Cliente_Servico" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Cliente_Usuario_Alarme_Usuario_Alarme" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Leitor_Evento" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Leitor_Receptores" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_OS_Tecnico_OS" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_OS_Tecnico_Tecnico" ManuallyRouted="false" />
+        <AssociationConnector Association="monitoramentoModel.FK_Servico_Tipo_Comunic_Tipo_Comunicacao" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

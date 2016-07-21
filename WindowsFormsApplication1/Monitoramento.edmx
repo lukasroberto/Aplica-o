@@ -1,0 +1,1393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="monitoramentoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Chip">
+          <Key>
+            <PropertyRef Name="chip_id" />
+          </Key>
+          <Property Name="chip_imei" Type="nvarchar" MaxLength="30" />
+          <Property Name="chip_operadora" Type="nvarchar" MaxLength="10" />
+          <Property Name="chip_data_envio" Type="datetime" />
+          <Property Name="cli_id" Type="bigint" />
+          <Property Name="chip_status" Type="float" />
+          <Property Name="chip_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="cidade_id" />
+          </Key>
+          <Property Name="cidade_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cidade_nome" Type="varchar" MaxLength="75" />
+          <Property Name="estado_id" Type="int" />
+          <Property Name="cidade_status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cli_id" />
+          </Key>
+          <Property Name="cli_id" Type="bigint" Nullable="false" />
+          <Property Name="cli_nome" Type="varchar" MaxLength="100" />
+          <Property Name="cli_rua" Type="varchar" MaxLength="100" />
+          <Property Name="cli_numero" Type="varchar" MaxLength="10" />
+          <Property Name="cli_bairro" Type="varchar" MaxLength="50" />
+          <Property Name="cidade_id" Type="int" />
+          <Property Name="cli_estado" Type="char" MaxLength="2" />
+          <Property Name="cli_telefone" Type="varchar" MaxLength="12" />
+          <Property Name="cli_cad_por" Type="varchar" MaxLength="50" />
+          <Property Name="cli_data_cad" Type="datetime" />
+          <Property Name="cli_telefone1" Type="varchar" MaxLength="12" />
+          <Property Name="emp_id" Type="int" />
+          <Property Name="cli_monitorado" Type="bit" />
+          <Property Name="cli_ultima_comunicacao" Type="datetime" />
+          <Property Name="cli_obs" Type="text" />
+          <Property Name="cli_data_cancelado_mon" Type="datetime" />
+          <Property Name="cli_comunicacao" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Cliente_Procedimentos">
+          <Key>
+            <PropertyRef Name="cli_proc_id" />
+          </Key>
+          <Property Name="cli_id" Type="bigint" Nullable="false" />
+          <Property Name="proc_id" Type="int" Nullable="false" />
+          <Property Name="cli_proc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente_Servico">
+          <Key>
+            <PropertyRef Name="cli_serv_id" />
+          </Key>
+          <Property Name="cli_serv_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cli_id" Type="bigint" Nullable="false" />
+          <Property Name="serv_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente_Usuario_Alarme">
+          <Key>
+            <PropertyRef Name="cli_usu_ala_id" />
+          </Key>
+          <Property Name="cli_usu_ala_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_id" Type="int" />
+          <Property Name="cli_id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_razao_social" Type="varchar" MaxLength="100" />
+          <Property Name="emp_endereco" Type="varchar" MaxLength="50" />
+          <Property Name="emp_bairro" Type="varchar" MaxLength="50" />
+          <Property Name="emp_cidade" Type="varchar" MaxLength="50" />
+          <Property Name="emp_telefone" Type="varchar" MaxLength="50" />
+          <Property Name="emp_email" Type="varchar" MaxLength="50" />
+          <Property Name="emp_cnpj" Type="varchar" MaxLength="50" />
+          <Property Name="emp_cep" Type="varchar" MaxLength="50" />
+          <Property Name="emp_uf" Type="varchar" MaxLength="2" />
+          <Property Name="emp_status" Type="bit" />
+          <Property Name="emp_nome_fantasia" Type="varchar" MaxLength="50" />
+          <Property Name="emp_data_abertura" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="estado_id" />
+          </Key>
+          <Property Name="estado_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado_nome" Type="varchar" MaxLength="75" />
+          <Property Name="estado_uf" Type="varchar" MaxLength="5" />
+          <Property Name="estado_pais" Type="varchar" MaxLength="50" />
+          <Property Name="estado_status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="eve_codigo_evento" />
+          </Key>
+          <Property Name="evento_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eve_codigo_evento" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="evento_descricao" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Leitor">
+          <Key>
+            <PropertyRef Name="eve_id" />
+          </Key>
+          <Property Name="eve_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eve_data_hora" Type="datetime" Nullable="false" />
+          <Property Name="eve_hora" Type="varchar" MaxLength="10" />
+          <Property Name="eve_data" Type="varchar" MaxLength="10" />
+          <Property Name="cli_id" Type="bigint" Nullable="false" />
+          <Property Name="eve_codigo_evento" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="eve_conta_grupo_receptor" Type="varchar" MaxLength="2" />
+          <Property Name="eve_particao" Type="varchar" MaxLength="5" />
+          <Property Name="eve_protocolo" Type="varchar" MaxLength="5" />
+          <Property Name="eve_usuario_zona" Type="varchar" MaxLength="5" />
+          <Property Name="eve_status" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="log_user" Type="char" MaxLength="15" />
+          <Property Name="log_pass" Type="char" MaxLength="10" />
+          <Property Name="log_nome" Type="varchar" MaxLength="50" />
+          <Property Name="log_nivel" Type="int" />
+          <Property Name="log_senha_falada" Type="char" MaxLength="10" />
+          <Property Name="log_acesso_sistema" Type="bit" />
+          <Property Name="log_senha" Type="varbinary" MaxLength="50" />
+          <Property Name="cli_id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="OS">
+          <Key>
+            <PropertyRef Name="os_id" />
+          </Key>
+          <Property Name="os_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cli_id" Type="bigint" />
+          <Property Name="os_data_ini" Type="datetime" Nullable="false" />
+          <Property Name="os_ini_serv" Type="datetime" />
+          <Property Name="os_fim_serv" Type="datetime" />
+          <Property Name="os_serv_sol" Type="varchar" MaxLength="1000" />
+          <Property Name="os_serv_efe" Type="varchar" MaxLength="1000" />
+          <Property Name="os_status" Type="int" />
+          <Property Name="os_obs" Type="varchar" MaxLength="500" />
+          <Property Name="os_expedidor" Type="varchar" MaxLength="50" />
+          <Property Name="os_data_agend" Type="datetime" />
+          <Property Name="os_pecas_util" Type="varchar" MaxLength="500" />
+          <Property Name="os_pecas_retir" Type="varchar" MaxLength="500" />
+          <Property Name="os_solicitada_por" Type="varchar" MaxLength="50" />
+          <Property Name="os_tipo" Type="int" />
+          <Property Name="os_tempo_servico" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="OS_Tecnico">
+          <Key>
+            <PropertyRef Name="os_tec_id" />
+          </Key>
+          <Property Name="os_id" Type="bigint" Nullable="false" />
+          <Property Name="tec_id" Type="int" Nullable="false" />
+          <Property Name="os_tec_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Procedimentos">
+          <Key>
+            <PropertyRef Name="proc_id" />
+          </Key>
+          <Property Name="proc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proc_procedimentos" Type="varchar" MaxLength="500" />
+          <Property Name="proc_tempo" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Receptores">
+          <Key>
+            <PropertyRef Name="eve_conta_grupo_receptor" />
+          </Key>
+          <Property Name="recep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="recep_modelo" Type="nchar" MaxLength="25" />
+          <Property Name="eve_conta_grupo_receptor" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="recep_tipo_comunicacao" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="recep_cidade" Type="varchar" MaxLength="50" />
+          <Property Name="recep_obs" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Servico_Tipo_Comunic">
+          <Key>
+            <PropertyRef Name="serv_tipo_com_id" />
+          </Key>
+          <Property Name="serv_tipo_com_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comunic_id" Type="int" Nullable="false" />
+          <Property Name="cli_serv_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servicos_Presdados">
+          <Key>
+            <PropertyRef Name="serv_id" />
+          </Key>
+          <Property Name="serv_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="serv_nome" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tecnico">
+          <Key>
+            <PropertyRef Name="tec_id" />
+          </Key>
+          <Property Name="tec_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tec_nome" Type="varchar" MaxLength="50" />
+          <Property Name="tec_status" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Tipo_Comunicacao">
+          <Key>
+            <PropertyRef Name="comunic_id" />
+          </Key>
+          <Property Name="comunic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comunic_nome" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuario_Alarme">
+          <Key>
+            <PropertyRef Name="usuario_id" />
+          </Key>
+          <Property Name="usuario_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_nome" Type="varchar" MaxLength="50" />
+          <Property Name="usuario_senha" Type="varchar" MaxLength="50" />
+          <Property Name="usuario_obs" Type="varchar" MaxLength="50" />
+          <Property Name="cli_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Chip_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Chip" Type="Self.Chip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Chip">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cidade_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="estado_id" />
+            </Principal>
+            <Dependent Role="Cidade">
+              <PropertyRef Name="estado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Cidade">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="cidade_id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Procedimentos_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cliente_Procedimentos" Type="Self.Cliente_Procedimentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Cliente_Procedimentos">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Procedimentos_Procedimentos">
+          <End Role="Procedimentos" Type="Self.Procedimentos" Multiplicity="1" />
+          <End Role="Cliente_Procedimentos" Type="Self.Cliente_Procedimentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Procedimentos">
+              <PropertyRef Name="proc_id" />
+            </Principal>
+            <Dependent Role="Cliente_Procedimentos">
+              <PropertyRef Name="proc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Servico_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cliente_Servico" Type="Self.Cliente_Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Cliente_Servico">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Servico_Servicos_Presdados">
+          <End Role="Servicos_Presdados" Type="Self.Servicos_Presdados" Multiplicity="1" />
+          <End Role="Cliente_Servico" Type="Self.Cliente_Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicos_Presdados">
+              <PropertyRef Name="serv_id" />
+            </Principal>
+            <Dependent Role="Cliente_Servico">
+              <PropertyRef Name="serv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario_Alarme_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Cliente_Usuario_Alarme" Type="Self.Cliente_Usuario_Alarme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Cliente_Usuario_Alarme">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario_Alarme_Usuario_Alarme">
+          <End Role="Usuario_Alarme" Type="Self.Usuario_Alarme" Multiplicity="0..1" />
+          <End Role="Cliente_Usuario_Alarme" Type="Self.Cliente_Usuario_Alarme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario_Alarme">
+              <PropertyRef Name="usuario_id" />
+            </Principal>
+            <Dependent Role="Cliente_Usuario_Alarme">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leitor_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Leitor" Type="Self.Leitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Leitor">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leitor_Evento">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="Leitor" Type="Self.Leitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="eve_codigo_evento" />
+            </Principal>
+            <Dependent Role="Leitor">
+              <PropertyRef Name="eve_codigo_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leitor_Receptores">
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="0..1" />
+          <End Role="Leitor" Type="Self.Leitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receptores">
+              <PropertyRef Name="eve_conta_grupo_receptor" />
+            </Principal>
+            <Dependent Role="Leitor">
+              <PropertyRef Name="eve_conta_grupo_receptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OS_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OS" Type="Self.OS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="OS">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OS_Tecnico_OS">
+          <End Role="OS" Type="Self.OS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OS_Tecnico" Type="Self.OS_Tecnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OS">
+              <PropertyRef Name="os_id" />
+            </Principal>
+            <Dependent Role="OS_Tecnico">
+              <PropertyRef Name="os_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OS_Tecnico_Tecnico">
+          <End Role="Tecnico" Type="Self.Tecnico" Multiplicity="1" />
+          <End Role="OS_Tecnico" Type="Self.OS_Tecnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnico">
+              <PropertyRef Name="tec_id" />
+            </Principal>
+            <Dependent Role="OS_Tecnico">
+              <PropertyRef Name="tec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servico_Tipo_Comunic_Cliente_Servico">
+          <End Role="Cliente_Servico" Type="Self.Cliente_Servico" Multiplicity="1" />
+          <End Role="Servico_Tipo_Comunic" Type="Self.Servico_Tipo_Comunic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente_Servico">
+              <PropertyRef Name="cli_serv_id" />
+            </Principal>
+            <Dependent Role="Servico_Tipo_Comunic">
+              <PropertyRef Name="cli_serv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servico_Tipo_Comunic_Tipo_Comunicacao">
+          <End Role="Tipo_Comunicacao" Type="Self.Tipo_Comunicacao" Multiplicity="1" />
+          <End Role="Servico_Tipo_Comunic" Type="Self.Servico_Tipo_Comunic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Comunicacao">
+              <PropertyRef Name="comunic_id" />
+            </Principal>
+            <Dependent Role="Servico_Tipo_Comunic">
+              <PropertyRef Name="comunic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="monitoramentoModelStoreContainer">
+          <EntitySet Name="Chip" EntityType="Self.Chip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente_Procedimentos" EntityType="Self.Cliente_Procedimentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente_Servico" EntityType="Self.Cliente_Servico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente_Usuario_Alarme" EntityType="Self.Cliente_Usuario_Alarme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evento" EntityType="Self.Evento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leitor" EntityType="Self.Leitor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OS" EntityType="Self.OS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OS_Tecnico" EntityType="Self.OS_Tecnico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Procedimentos" EntityType="Self.Procedimentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receptores" EntityType="Self.Receptores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servico_Tipo_Comunic" EntityType="Self.Servico_Tipo_Comunic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicos_Presdados" EntityType="Self.Servicos_Presdados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tecnico" EntityType="Self.Tecnico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Comunicacao" EntityType="Self.Tipo_Comunicacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario_Alarme" EntityType="Self.Usuario_Alarme" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Chip_Cliente" Association="Self.FK_Chip_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Chip" EntitySet="Chip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cidade_Estado" Association="Self.FK_Cidade_Estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Cidade" EntitySet="Cidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Cidade" Association="Self.FK_Cliente_Cidade">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Empresa" Association="Self.FK_Cliente_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Procedimentos_Cliente" Association="Self.FK_Cliente_Procedimentos_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Procedimentos" EntitySet="Cliente_Procedimentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Procedimentos_Procedimentos" Association="Self.FK_Cliente_Procedimentos_Procedimentos">
+            <End Role="Procedimentos" EntitySet="Procedimentos" />
+            <End Role="Cliente_Procedimentos" EntitySet="Cliente_Procedimentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Servico_Cliente" Association="Self.FK_Cliente_Servico_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Servico" EntitySet="Cliente_Servico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Servico_Servicos_Presdados" Association="Self.FK_Cliente_Servico_Servicos_Presdados">
+            <End Role="Servicos_Presdados" EntitySet="Servicos_Presdados" />
+            <End Role="Cliente_Servico" EntitySet="Cliente_Servico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario_Alarme_Cliente" Association="Self.FK_Cliente_Usuario_Alarme_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Usuario_Alarme" EntitySet="Cliente_Usuario_Alarme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario_Alarme_Usuario_Alarme" Association="Self.FK_Cliente_Usuario_Alarme_Usuario_Alarme">
+            <End Role="Usuario_Alarme" EntitySet="Usuario_Alarme" />
+            <End Role="Cliente_Usuario_Alarme" EntitySet="Cliente_Usuario_Alarme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leitor_Cliente" Association="Self.FK_Leitor_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Leitor" EntitySet="Leitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leitor_Evento" Association="Self.FK_Leitor_Evento">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Leitor" EntitySet="Leitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leitor_Receptores" Association="Self.FK_Leitor_Receptores">
+            <End Role="Receptores" EntitySet="Receptores" />
+            <End Role="Leitor" EntitySet="Leitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OS_Cliente" Association="Self.FK_OS_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="OS" EntitySet="OS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OS_Tecnico_OS" Association="Self.FK_OS_Tecnico_OS">
+            <End Role="OS" EntitySet="OS" />
+            <End Role="OS_Tecnico" EntitySet="OS_Tecnico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OS_Tecnico_Tecnico" Association="Self.FK_OS_Tecnico_Tecnico">
+            <End Role="Tecnico" EntitySet="Tecnico" />
+            <End Role="OS_Tecnico" EntitySet="OS_Tecnico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servico_Tipo_Comunic_Cliente_Servico" Association="Self.FK_Servico_Tipo_Comunic_Cliente_Servico">
+            <End Role="Cliente_Servico" EntitySet="Cliente_Servico" />
+            <End Role="Servico_Tipo_Comunic" EntitySet="Servico_Tipo_Comunic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servico_Tipo_Comunic_Tipo_Comunicacao" Association="Self.FK_Servico_Tipo_Comunic_Tipo_Comunicacao">
+            <End Role="Tipo_Comunicacao" EntitySet="Tipo_Comunicacao" />
+            <End Role="Servico_Tipo_Comunic" EntitySet="Servico_Tipo_Comunic" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="monitoramentoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Chip">
+          <Key>
+            <PropertyRef Name="chip_id" />
+          </Key>
+          <Property Name="chip_imei" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="chip_operadora" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="chip_data_envio" Type="DateTime" Precision="3" />
+          <Property Name="cli_id" Type="Int64" />
+          <Property Name="chip_status" Type="Double" />
+          <Property Name="chip_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Chip_Cliente" FromRole="Chip" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="cidade_id" />
+          </Key>
+          <Property Name="cidade_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cidade_nome" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="estado_id" Type="Int32" />
+          <Property Name="cidade_status" Type="Boolean" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK_Cidade_Estado" FromRole="Cidade" ToRole="Estado" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Cidade" FromRole="Cidade" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cli_id" />
+          </Key>
+          <Property Name="cli_id" Type="Int64" Nullable="false" />
+          <Property Name="cli_nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cli_rua" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cli_numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cli_bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cidade_id" Type="Int32" />
+          <Property Name="cli_estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="cli_telefone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="cli_cad_por" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cli_data_cad" Type="DateTime" Precision="3" />
+          <Property Name="cli_telefone1" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="cli_monitorado" Type="Boolean" />
+          <Property Name="cli_ultima_comunicacao" Type="DateTime" Precision="3" />
+          <Property Name="cli_obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cli_data_cancelado_mon" Type="DateTime" Precision="3" />
+          <Property Name="cli_comunicacao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chip" Relationship="Self.FK_Chip_Cliente" FromRole="Cliente" ToRole="Chip" />
+          <NavigationProperty Name="Cidade" Relationship="Self.FK_Cliente_Cidade" FromRole="Cliente" ToRole="Cidade" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_Cliente_Empresa" FromRole="Cliente" ToRole="Empresa" />
+          <NavigationProperty Name="Cliente_Procedimentos" Relationship="Self.FK_Cliente_Procedimentos_Cliente" FromRole="Cliente" ToRole="Cliente_Procedimentos" />
+          <NavigationProperty Name="Cliente_Servico" Relationship="Self.FK_Cliente_Servico_Cliente" FromRole="Cliente" ToRole="Cliente_Servico" />
+          <NavigationProperty Name="Cliente_Usuario_Alarme" Relationship="Self.FK_Cliente_Usuario_Alarme_Cliente" FromRole="Cliente" ToRole="Cliente_Usuario_Alarme" />
+          <NavigationProperty Name="Leitor" Relationship="Self.FK_Leitor_Cliente" FromRole="Cliente" ToRole="Leitor" />
+          <NavigationProperty Name="OS" Relationship="Self.FK_OS_Cliente" FromRole="Cliente" ToRole="OS" />
+        </EntityType>
+        <EntityType Name="Cliente_Procedimentos">
+          <Key>
+            <PropertyRef Name="cli_proc_id" />
+          </Key>
+          <Property Name="cli_id" Type="Int64" Nullable="false" />
+          <Property Name="proc_id" Type="Int32" Nullable="false" />
+          <Property Name="cli_proc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Procedimentos_Cliente" FromRole="Cliente_Procedimentos" ToRole="Cliente" />
+          <NavigationProperty Name="Procedimentos" Relationship="Self.FK_Cliente_Procedimentos_Procedimentos" FromRole="Cliente_Procedimentos" ToRole="Procedimentos" />
+        </EntityType>
+        <EntityType Name="Cliente_Servico">
+          <Key>
+            <PropertyRef Name="cli_serv_id" />
+          </Key>
+          <Property Name="cli_serv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cli_id" Type="Int64" Nullable="false" />
+          <Property Name="serv_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Servico_Cliente" FromRole="Cliente_Servico" ToRole="Cliente" />
+          <NavigationProperty Name="Servicos_Presdados" Relationship="Self.FK_Cliente_Servico_Servicos_Presdados" FromRole="Cliente_Servico" ToRole="Servicos_Presdados" />
+          <NavigationProperty Name="Servico_Tipo_Comunic" Relationship="Self.FK_Servico_Tipo_Comunic_Cliente_Servico" FromRole="Cliente_Servico" ToRole="Servico_Tipo_Comunic" />
+        </EntityType>
+        <EntityType Name="Cliente_Usuario_Alarme">
+          <Key>
+            <PropertyRef Name="cli_usu_ala_id" />
+          </Key>
+          <Property Name="cli_usu_ala_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_id" Type="Int32" />
+          <Property Name="cli_id" Type="Int64" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Usuario_Alarme_Cliente" FromRole="Cliente_Usuario_Alarme" ToRole="Cliente" />
+          <NavigationProperty Name="Usuario_Alarme" Relationship="Self.FK_Cliente_Usuario_Alarme_Usuario_Alarme" FromRole="Cliente_Usuario_Alarme" ToRole="Usuario_Alarme" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_razao_social" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="emp_endereco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_cnpj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_cep" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_uf" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="emp_status" Type="Boolean" />
+          <Property Name="emp_nome_fantasia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_data_abertura" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Empresa" FromRole="Empresa" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="estado_id" />
+          </Key>
+          <Property Name="estado_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado_nome" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="estado_uf" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="estado_pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado_status" Type="Boolean" />
+          <NavigationProperty Name="Cidade" Relationship="Self.FK_Cidade_Estado" FromRole="Estado" ToRole="Cidade" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="eve_codigo_evento" />
+          </Key>
+          <Property Name="evento_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eve_codigo_evento" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="evento_descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Leitor" Relationship="Self.FK_Leitor_Evento" FromRole="Evento" ToRole="Leitor" />
+        </EntityType>
+        <EntityType Name="Leitor">
+          <Key>
+            <PropertyRef Name="eve_id" />
+          </Key>
+          <Property Name="eve_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eve_data_hora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="eve_hora" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="eve_data" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cli_id" Type="Int64" Nullable="false" />
+          <Property Name="eve_codigo_evento" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="eve_conta_grupo_receptor" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="eve_particao" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="eve_protocolo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="eve_usuario_zona" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="eve_status" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Leitor_Cliente" FromRole="Leitor" ToRole="Cliente" />
+          <NavigationProperty Name="Evento" Relationship="Self.FK_Leitor_Evento" FromRole="Leitor" ToRole="Evento" />
+          <NavigationProperty Name="Receptores" Relationship="Self.FK_Leitor_Receptores" FromRole="Leitor" ToRole="Receptores" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="log_user" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="log_pass" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="log_nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="log_nivel" Type="Int32" />
+          <Property Name="log_senha_falada" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="log_acesso_sistema" Type="Boolean" />
+          <Property Name="log_senha" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="cli_id" Type="Int64" />
+        </EntityType>
+        <EntityType Name="OS">
+          <Key>
+            <PropertyRef Name="os_id" />
+          </Key>
+          <Property Name="os_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cli_id" Type="Int64" />
+          <Property Name="os_data_ini" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="os_ini_serv" Type="DateTime" Precision="3" />
+          <Property Name="os_fim_serv" Type="DateTime" Precision="3" />
+          <Property Name="os_serv_sol" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="os_serv_efe" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="os_status" Type="Int32" />
+          <Property Name="os_obs" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="os_expedidor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="os_data_agend" Type="DateTime" Precision="3" />
+          <Property Name="os_pecas_util" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="os_pecas_retir" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="os_solicitada_por" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="os_tipo" Type="Int32" />
+          <Property Name="os_tempo_servico" Type="Time" Precision="7" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_OS_Cliente" FromRole="OS" ToRole="Cliente" />
+          <NavigationProperty Name="OS_Tecnico" Relationship="Self.FK_OS_Tecnico_OS" FromRole="OS" ToRole="OS_Tecnico" />
+        </EntityType>
+        <EntityType Name="OS_Tecnico">
+          <Key>
+            <PropertyRef Name="os_tec_id" />
+          </Key>
+          <Property Name="os_id" Type="Int64" Nullable="false" />
+          <Property Name="tec_id" Type="Int32" Nullable="false" />
+          <Property Name="os_tec_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="OS" Relationship="Self.FK_OS_Tecnico_OS" FromRole="OS_Tecnico" ToRole="OS" />
+          <NavigationProperty Name="Tecnico" Relationship="Self.FK_OS_Tecnico_Tecnico" FromRole="OS_Tecnico" ToRole="Tecnico" />
+        </EntityType>
+        <EntityType Name="Procedimentos">
+          <Key>
+            <PropertyRef Name="proc_id" />
+          </Key>
+          <Property Name="proc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proc_procedimentos" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="proc_tempo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Cliente_Procedimentos" Relationship="Self.FK_Cliente_Procedimentos_Procedimentos" FromRole="Procedimentos" ToRole="Cliente_Procedimentos" />
+        </EntityType>
+        <EntityType Name="Receptores">
+          <Key>
+            <PropertyRef Name="eve_conta_grupo_receptor" />
+          </Key>
+          <Property Name="recep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recep_modelo" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="eve_conta_grupo_receptor" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recep_tipo_comunicacao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recep_cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="recep_obs" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Leitor" Relationship="Self.FK_Leitor_Receptores" FromRole="Receptores" ToRole="Leitor" />
+        </EntityType>
+        <EntityType Name="Servico_Tipo_Comunic">
+          <Key>
+            <PropertyRef Name="serv_tipo_com_id" />
+          </Key>
+          <Property Name="serv_tipo_com_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comunic_id" Type="Int32" Nullable="false" />
+          <Property Name="cli_serv_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente_Servico" Relationship="Self.FK_Servico_Tipo_Comunic_Cliente_Servico" FromRole="Servico_Tipo_Comunic" ToRole="Cliente_Servico" />
+          <NavigationProperty Name="Tipo_Comunicacao" Relationship="Self.FK_Servico_Tipo_Comunic_Tipo_Comunicacao" FromRole="Servico_Tipo_Comunic" ToRole="Tipo_Comunicacao" />
+        </EntityType>
+        <EntityType Name="Servicos_Presdados">
+          <Key>
+            <PropertyRef Name="serv_id" />
+          </Key>
+          <Property Name="serv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="serv_nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente_Servico" Relationship="Self.FK_Cliente_Servico_Servicos_Presdados" FromRole="Servicos_Presdados" ToRole="Cliente_Servico" />
+        </EntityType>
+        <EntityType Name="Tecnico">
+          <Key>
+            <PropertyRef Name="tec_id" />
+          </Key>
+          <Property Name="tec_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tec_nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tec_status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OS_Tecnico" Relationship="Self.FK_OS_Tecnico_Tecnico" FromRole="Tecnico" ToRole="OS_Tecnico" />
+        </EntityType>
+        <EntityType Name="Tipo_Comunicacao">
+          <Key>
+            <PropertyRef Name="comunic_id" />
+          </Key>
+          <Property Name="comunic_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comunic_nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Servico_Tipo_Comunic" Relationship="Self.FK_Servico_Tipo_Comunic_Tipo_Comunicacao" FromRole="Tipo_Comunicacao" ToRole="Servico_Tipo_Comunic" />
+        </EntityType>
+        <EntityType Name="Usuario_Alarme">
+          <Key>
+            <PropertyRef Name="usuario_id" />
+          </Key>
+          <Property Name="usuario_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_obs" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cli_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Cliente_Usuario_Alarme" Relationship="Self.FK_Cliente_Usuario_Alarme_Usuario_Alarme" FromRole="Usuario_Alarme" ToRole="Cliente_Usuario_Alarme" />
+        </EntityType>
+        <Association Name="FK_Chip_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Chip" Type="Self.Chip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Chip">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cidade_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="estado_id" />
+            </Principal>
+            <Dependent Role="Cidade">
+              <PropertyRef Name="estado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Cidade">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="cidade_id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Procedimentos_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cliente_Procedimentos" Type="Self.Cliente_Procedimentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Cliente_Procedimentos">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Servico_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cliente_Servico" Type="Self.Cliente_Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Cliente_Servico">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario_Alarme_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Cliente_Usuario_Alarme" Type="Self.Cliente_Usuario_Alarme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Cliente_Usuario_Alarme">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leitor_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Leitor" Type="Self.Leitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="Leitor">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OS_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OS" Type="Self.OS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cli_id" />
+            </Principal>
+            <Dependent Role="OS">
+              <PropertyRef Name="cli_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Procedimentos_Procedimentos">
+          <End Role="Procedimentos" Type="Self.Procedimentos" Multiplicity="1" />
+          <End Role="Cliente_Procedimentos" Type="Self.Cliente_Procedimentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Procedimentos">
+              <PropertyRef Name="proc_id" />
+            </Principal>
+            <Dependent Role="Cliente_Procedimentos">
+              <PropertyRef Name="proc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Servico_Servicos_Presdados">
+          <End Role="Servicos_Presdados" Type="Self.Servicos_Presdados" Multiplicity="1" />
+          <End Role="Cliente_Servico" Type="Self.Cliente_Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicos_Presdados">
+              <PropertyRef Name="serv_id" />
+            </Principal>
+            <Dependent Role="Cliente_Servico">
+              <PropertyRef Name="serv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servico_Tipo_Comunic_Cliente_Servico">
+          <End Role="Cliente_Servico" Type="Self.Cliente_Servico" Multiplicity="1" />
+          <End Role="Servico_Tipo_Comunic" Type="Self.Servico_Tipo_Comunic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente_Servico">
+              <PropertyRef Name="cli_serv_id" />
+            </Principal>
+            <Dependent Role="Servico_Tipo_Comunic">
+              <PropertyRef Name="cli_serv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario_Alarme_Usuario_Alarme">
+          <End Role="Usuario_Alarme" Type="Self.Usuario_Alarme" Multiplicity="0..1" />
+          <End Role="Cliente_Usuario_Alarme" Type="Self.Cliente_Usuario_Alarme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario_Alarme">
+              <PropertyRef Name="usuario_id" />
+            </Principal>
+            <Dependent Role="Cliente_Usuario_Alarme">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leitor_Evento">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="Leitor" Type="Self.Leitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="eve_codigo_evento" />
+            </Principal>
+            <Dependent Role="Leitor">
+              <PropertyRef Name="eve_codigo_evento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leitor_Receptores">
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="0..1" />
+          <End Role="Leitor" Type="Self.Leitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receptores">
+              <PropertyRef Name="eve_conta_grupo_receptor" />
+            </Principal>
+            <Dependent Role="Leitor">
+              <PropertyRef Name="eve_conta_grupo_receptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OS_Tecnico_OS">
+          <End Role="OS" Type="Self.OS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OS_Tecnico" Type="Self.OS_Tecnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OS">
+              <PropertyRef Name="os_id" />
+            </Principal>
+            <Dependent Role="OS_Tecnico">
+              <PropertyRef Name="os_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OS_Tecnico_Tecnico">
+          <End Role="Tecnico" Type="Self.Tecnico" Multiplicity="1" />
+          <End Role="OS_Tecnico" Type="Self.OS_Tecnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnico">
+              <PropertyRef Name="tec_id" />
+            </Principal>
+            <Dependent Role="OS_Tecnico">
+              <PropertyRef Name="tec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servico_Tipo_Comunic_Tipo_Comunicacao">
+          <End Role="Tipo_Comunicacao" Type="Self.Tipo_Comunicacao" Multiplicity="1" />
+          <End Role="Servico_Tipo_Comunic" Type="Self.Servico_Tipo_Comunic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Comunicacao">
+              <PropertyRef Name="comunic_id" />
+            </Principal>
+            <Dependent Role="Servico_Tipo_Comunic">
+              <PropertyRef Name="comunic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="monitoramentoEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Chip" EntityType="Self.Chip" />
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Cliente_Procedimentos" EntityType="Self.Cliente_Procedimentos" />
+          <EntitySet Name="Cliente_Servico" EntityType="Self.Cliente_Servico" />
+          <EntitySet Name="Cliente_Usuario_Alarme" EntityType="Self.Cliente_Usuario_Alarme" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" />
+          <EntitySet Name="Evento" EntityType="Self.Evento" />
+          <EntitySet Name="Leitor" EntityType="Self.Leitor" />
+          <EntitySet Name="Login" EntityType="Self.Login" />
+          <EntitySet Name="OS" EntityType="Self.OS" />
+          <EntitySet Name="OS_Tecnico" EntityType="Self.OS_Tecnico" />
+          <EntitySet Name="Procedimentos" EntityType="Self.Procedimentos" />
+          <EntitySet Name="Receptores" EntityType="Self.Receptores" />
+          <EntitySet Name="Servico_Tipo_Comunic" EntityType="Self.Servico_Tipo_Comunic" />
+          <EntitySet Name="Servicos_Presdados" EntityType="Self.Servicos_Presdados" />
+          <EntitySet Name="Tecnico" EntityType="Self.Tecnico" />
+          <EntitySet Name="Tipo_Comunicacao" EntityType="Self.Tipo_Comunicacao" />
+          <EntitySet Name="Usuario_Alarme" EntityType="Self.Usuario_Alarme" />
+          <AssociationSet Name="FK_Chip_Cliente" Association="Self.FK_Chip_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Chip" EntitySet="Chip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cidade_Estado" Association="Self.FK_Cidade_Estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Cidade" EntitySet="Cidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Cidade" Association="Self.FK_Cliente_Cidade">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Empresa" Association="Self.FK_Cliente_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Procedimentos_Cliente" Association="Self.FK_Cliente_Procedimentos_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Procedimentos" EntitySet="Cliente_Procedimentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Servico_Cliente" Association="Self.FK_Cliente_Servico_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Servico" EntitySet="Cliente_Servico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario_Alarme_Cliente" Association="Self.FK_Cliente_Usuario_Alarme_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Usuario_Alarme" EntitySet="Cliente_Usuario_Alarme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leitor_Cliente" Association="Self.FK_Leitor_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Leitor" EntitySet="Leitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OS_Cliente" Association="Self.FK_OS_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="OS" EntitySet="OS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Procedimentos_Procedimentos" Association="Self.FK_Cliente_Procedimentos_Procedimentos">
+            <End Role="Procedimentos" EntitySet="Procedimentos" />
+            <End Role="Cliente_Procedimentos" EntitySet="Cliente_Procedimentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Servico_Servicos_Presdados" Association="Self.FK_Cliente_Servico_Servicos_Presdados">
+            <End Role="Servicos_Presdados" EntitySet="Servicos_Presdados" />
+            <End Role="Cliente_Servico" EntitySet="Cliente_Servico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servico_Tipo_Comunic_Cliente_Servico" Association="Self.FK_Servico_Tipo_Comunic_Cliente_Servico">
+            <End Role="Cliente_Servico" EntitySet="Cliente_Servico" />
+            <End Role="Servico_Tipo_Comunic" EntitySet="Servico_Tipo_Comunic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario_Alarme_Usuario_Alarme" Association="Self.FK_Cliente_Usuario_Alarme_Usuario_Alarme">
+            <End Role="Usuario_Alarme" EntitySet="Usuario_Alarme" />
+            <End Role="Cliente_Usuario_Alarme" EntitySet="Cliente_Usuario_Alarme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leitor_Evento" Association="Self.FK_Leitor_Evento">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Leitor" EntitySet="Leitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leitor_Receptores" Association="Self.FK_Leitor_Receptores">
+            <End Role="Receptores" EntitySet="Receptores" />
+            <End Role="Leitor" EntitySet="Leitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OS_Tecnico_OS" Association="Self.FK_OS_Tecnico_OS">
+            <End Role="OS" EntitySet="OS" />
+            <End Role="OS_Tecnico" EntitySet="OS_Tecnico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OS_Tecnico_Tecnico" Association="Self.FK_OS_Tecnico_Tecnico">
+            <End Role="Tecnico" EntitySet="Tecnico" />
+            <End Role="OS_Tecnico" EntitySet="OS_Tecnico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servico_Tipo_Comunic_Tipo_Comunicacao" Association="Self.FK_Servico_Tipo_Comunic_Tipo_Comunicacao">
+            <End Role="Tipo_Comunicacao" EntitySet="Tipo_Comunicacao" />
+            <End Role="Servico_Tipo_Comunic" EntitySet="Servico_Tipo_Comunic" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="monitoramentoModelStoreContainer" CdmEntityContainer="monitoramentoEntities2">
+          <EntitySetMapping Name="Chip">
+            <EntityTypeMapping TypeName="monitoramentoModel.Chip">
+              <MappingFragment StoreEntitySet="Chip">
+                <ScalarProperty Name="chip_imei" ColumnName="chip_imei" />
+                <ScalarProperty Name="chip_operadora" ColumnName="chip_operadora" />
+                <ScalarProperty Name="chip_data_envio" ColumnName="chip_data_envio" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="chip_status" ColumnName="chip_status" />
+                <ScalarProperty Name="chip_id" ColumnName="chip_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cidade">
+            <EntityTypeMapping TypeName="monitoramentoModel.Cidade">
+              <MappingFragment StoreEntitySet="Cidade">
+                <ScalarProperty Name="cidade_id" ColumnName="cidade_id" />
+                <ScalarProperty Name="cidade_nome" ColumnName="cidade_nome" />
+                <ScalarProperty Name="estado_id" ColumnName="estado_id" />
+                <ScalarProperty Name="cidade_status" ColumnName="cidade_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="monitoramentoModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="cli_nome" ColumnName="cli_nome" />
+                <ScalarProperty Name="cli_rua" ColumnName="cli_rua" />
+                <ScalarProperty Name="cli_numero" ColumnName="cli_numero" />
+                <ScalarProperty Name="cli_bairro" ColumnName="cli_bairro" />
+                <ScalarProperty Name="cidade_id" ColumnName="cidade_id" />
+                <ScalarProperty Name="cli_estado" ColumnName="cli_estado" />
+                <ScalarProperty Name="cli_telefone" ColumnName="cli_telefone" />
+                <ScalarProperty Name="cli_cad_por" ColumnName="cli_cad_por" />
+                <ScalarProperty Name="cli_data_cad" ColumnName="cli_data_cad" />
+                <ScalarProperty Name="cli_telefone1" ColumnName="cli_telefone1" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="cli_monitorado" ColumnName="cli_monitorado" />
+                <ScalarProperty Name="cli_ultima_comunicacao" ColumnName="cli_ultima_comunicacao" />
+                <ScalarProperty Name="cli_obs" ColumnName="cli_obs" />
+                <ScalarProperty Name="cli_data_cancelado_mon" ColumnName="cli_data_cancelado_mon" />
+                <ScalarProperty Name="cli_comunicacao" ColumnName="cli_comunicacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente_Procedimentos">
+            <EntityTypeMapping TypeName="monitoramentoModel.Cliente_Procedimentos">
+              <MappingFragment StoreEntitySet="Cliente_Procedimentos">
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="proc_id" ColumnName="proc_id" />
+                <ScalarProperty Name="cli_proc_id" ColumnName="cli_proc_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente_Servico">
+            <EntityTypeMapping TypeName="monitoramentoModel.Cliente_Servico">
+              <MappingFragment StoreEntitySet="Cliente_Servico">
+                <ScalarProperty Name="cli_serv_id" ColumnName="cli_serv_id" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="serv_id" ColumnName="serv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente_Usuario_Alarme">
+            <EntityTypeMapping TypeName="monitoramentoModel.Cliente_Usuario_Alarme">
+              <MappingFragment StoreEntitySet="Cliente_Usuario_Alarme">
+                <ScalarProperty Name="cli_usu_ala_id" ColumnName="cli_usu_ala_id" />
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="monitoramentoModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_razao_social" ColumnName="emp_razao_social" />
+                <ScalarProperty Name="emp_endereco" ColumnName="emp_endereco" />
+                <ScalarProperty Name="emp_bairro" ColumnName="emp_bairro" />
+                <ScalarProperty Name="emp_cidade" ColumnName="emp_cidade" />
+                <ScalarProperty Name="emp_telefone" ColumnName="emp_telefone" />
+                <ScalarProperty Name="emp_email" ColumnName="emp_email" />
+                <ScalarProperty Name="emp_cnpj" ColumnName="emp_cnpj" />
+                <ScalarProperty Name="emp_cep" ColumnName="emp_cep" />
+                <ScalarProperty Name="emp_uf" ColumnName="emp_uf" />
+                <ScalarProperty Name="emp_status" ColumnName="emp_status" />
+                <ScalarProperty Name="emp_nome_fantasia" ColumnName="emp_nome_fantasia" />
+                <ScalarProperty Name="emp_data_abertura" ColumnName="emp_data_abertura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado">
+            <EntityTypeMapping TypeName="monitoramentoModel.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="estado_id" ColumnName="estado_id" />
+                <ScalarProperty Name="estado_nome" ColumnName="estado_nome" />
+                <ScalarProperty Name="estado_uf" ColumnName="estado_uf" />
+                <ScalarProperty Name="estado_pais" ColumnName="estado_pais" />
+                <ScalarProperty Name="estado_status" ColumnName="estado_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evento">
+            <EntityTypeMapping TypeName="monitoramentoModel.Evento">
+              <MappingFragment StoreEntitySet="Evento">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="eve_codigo_evento" ColumnName="eve_codigo_evento" />
+                <ScalarProperty Name="evento_descricao" ColumnName="evento_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leitor">
+            <EntityTypeMapping TypeName="monitoramentoModel.Leitor">
+              <MappingFragment StoreEntitySet="Leitor">
+                <ScalarProperty Name="eve_id" ColumnName="eve_id" />
+                <ScalarProperty Name="eve_data_hora" ColumnName="eve_data_hora" />
+                <ScalarProperty Name="eve_hora" ColumnName="eve_hora" />
+                <ScalarProperty Name="eve_data" ColumnName="eve_data" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="eve_codigo_evento" ColumnName="eve_codigo_evento" />
+                <ScalarProperty Name="eve_conta_grupo_receptor" ColumnName="eve_conta_grupo_receptor" />
+                <ScalarProperty Name="eve_particao" ColumnName="eve_particao" />
+                <ScalarProperty Name="eve_protocolo" ColumnName="eve_protocolo" />
+                <ScalarProperty Name="eve_usuario_zona" ColumnName="eve_usuario_zona" />
+                <ScalarProperty Name="eve_status" ColumnName="eve_status" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login">
+            <EntityTypeMapping TypeName="monitoramentoModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="log_id" ColumnName="log_id" />
+                <ScalarProperty Name="log_user" ColumnName="log_user" />
+                <ScalarProperty Name="log_pass" ColumnName="log_pass" />
+                <ScalarProperty Name="log_nome" ColumnName="log_nome" />
+                <ScalarProperty Name="log_nivel" ColumnName="log_nivel" />
+                <ScalarProperty Name="log_senha_falada" ColumnName="log_senha_falada" />
+                <ScalarProperty Name="log_acesso_sistema" ColumnName="log_acesso_sistema" />
+                <ScalarProperty Name="log_senha" ColumnName="log_senha" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OS">
+            <EntityTypeMapping TypeName="monitoramentoModel.OS">
+              <MappingFragment StoreEntitySet="OS">
+                <ScalarProperty Name="os_id" ColumnName="os_id" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+                <ScalarProperty Name="os_data_ini" ColumnName="os_data_ini" />
+                <ScalarProperty Name="os_ini_serv" ColumnName="os_ini_serv" />
+                <ScalarProperty Name="os_fim_serv" ColumnName="os_fim_serv" />
+                <ScalarProperty Name="os_serv_sol" ColumnName="os_serv_sol" />
+                <ScalarProperty Name="os_serv_efe" ColumnName="os_serv_efe" />
+                <ScalarProperty Name="os_status" ColumnName="os_status" />
+                <ScalarProperty Name="os_obs" ColumnName="os_obs" />
+                <ScalarProperty Name="os_expedidor" ColumnName="os_expedidor" />
+                <ScalarProperty Name="os_data_agend" ColumnName="os_data_agend" />
+                <ScalarProperty Name="os_pecas_util" ColumnName="os_pecas_util" />
+                <ScalarProperty Name="os_pecas_retir" ColumnName="os_pecas_retir" />
+                <ScalarProperty Name="os_solicitada_por" ColumnName="os_solicitada_por" />
+                <ScalarProperty Name="os_tipo" ColumnName="os_tipo" />
+                <ScalarProperty Name="os_tempo_servico" ColumnName="os_tempo_servico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OS_Tecnico">
+            <EntityTypeMapping TypeName="monitoramentoModel.OS_Tecnico">
+              <MappingFragment StoreEntitySet="OS_Tecnico">
+                <ScalarProperty Name="os_id" ColumnName="os_id" />
+                <ScalarProperty Name="tec_id" ColumnName="tec_id" />
+                <ScalarProperty Name="os_tec_id" ColumnName="os_tec_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Procedimentos">
+            <EntityTypeMapping TypeName="monitoramentoModel.Procedimentos">
+              <MappingFragment StoreEntitySet="Procedimentos">
+                <ScalarProperty Name="proc_id" ColumnName="proc_id" />
+                <ScalarProperty Name="proc_procedimentos" ColumnName="proc_procedimentos" />
+                <ScalarProperty Name="proc_tempo" ColumnName="proc_tempo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receptores">
+            <EntityTypeMapping TypeName="monitoramentoModel.Receptores">
+              <MappingFragment StoreEntitySet="Receptores">
+                <ScalarProperty Name="recep_id" ColumnName="recep_id" />
+                <ScalarProperty Name="recep_modelo" ColumnName="recep_modelo" />
+                <ScalarProperty Name="eve_conta_grupo_receptor" ColumnName="eve_conta_grupo_receptor" />
+                <ScalarProperty Name="recep_tipo_comunicacao" ColumnName="recep_tipo_comunicacao" />
+                <ScalarProperty Name="recep_cidade" ColumnName="recep_cidade" />
+                <ScalarProperty Name="recep_obs" ColumnName="recep_obs" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servico_Tipo_Comunic">
+            <EntityTypeMapping TypeName="monitoramentoModel.Servico_Tipo_Comunic">
+              <MappingFragment StoreEntitySet="Servico_Tipo_Comunic">
+                <ScalarProperty Name="serv_tipo_com_id" ColumnName="serv_tipo_com_id" />
+                <ScalarProperty Name="comunic_id" ColumnName="comunic_id" />
+                <ScalarProperty Name="cli_serv_id" ColumnName="cli_serv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servicos_Presdados">
+            <EntityTypeMapping TypeName="monitoramentoModel.Servicos_Presdados">
+              <MappingFragment StoreEntitySet="Servicos_Presdados">
+                <ScalarProperty Name="serv_id" ColumnName="serv_id" />
+                <ScalarProperty Name="serv_nome" ColumnName="serv_nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tecnico">
+            <EntityTypeMapping TypeName="monitoramentoModel.Tecnico">
+              <MappingFragment StoreEntitySet="Tecnico">
+                <ScalarProperty Name="tec_id" ColumnName="tec_id" />
+                <ScalarProperty Name="tec_nome" ColumnName="tec_nome" />
+                <ScalarProperty Name="tec_status" ColumnName="tec_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Comunicacao">
+            <EntityTypeMapping TypeName="monitoramentoModel.Tipo_Comunicacao">
+              <MappingFragment StoreEntitySet="Tipo_Comunicacao">
+                <ScalarProperty Name="comunic_id" ColumnName="comunic_id" />
+                <ScalarProperty Name="comunic_nome" ColumnName="comunic_nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario_Alarme">
+            <EntityTypeMapping TypeName="monitoramentoModel.Usuario_Alarme">
+              <MappingFragment StoreEntitySet="Usuario_Alarme">
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+                <ScalarProperty Name="usuario_nome" ColumnName="usuario_nome" />
+                <ScalarProperty Name="usuario_senha" ColumnName="usuario_senha" />
+                <ScalarProperty Name="usuario_obs" ColumnName="usuario_obs" />
+                <ScalarProperty Name="cli_id" ColumnName="cli_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -20,5 +20,14 @@ namespace frmCadastroChips
             lblCodigoChip.Text = "Lukas";
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbOperadora_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
