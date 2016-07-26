@@ -8,7 +8,7 @@ namespace Monial
     public partial class frmChips : Form
     {
         ControllerChips controllerChips = new ControllerChips();
-        monialEntities db = new monialEntities();
+        //monialEntities db = new monialEntities();
 
         public frmChips()
         {
@@ -23,21 +23,25 @@ namespace Monial
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (validaCampos() == true)
-            {
-                String imei = txtImei.Text;
-                String operadora = cmbOperadora.Text;
-                DateTime data = DateTime.Parse(dtpDataEnvio.Text);
-                long cliId = long.Parse(txtCliId.Text);
+            { 
                 String status = cmbStatus.Text;
-                int statusICodigo = int.Parse(cmbStatus.Text);
+                int statusInt = 0;
 
-                if (status == "ATIVO") { statusICodigo = 1; }
-                if (status == "ESTOQUE") { statusICodigo = 2; }
-                if (status == "CANCELADO") { statusICodigo = 3; }
-                if (status == "CANCELAR") { statusICodigo = 4; }
+                if (status == "ATIVO") { statusInt = 1; }
+                if (status == "ESTOQUE") { statusInt = 2; }
+                if (status == "CANCELADO") { statusInt = 3; }
+                if (status == "CANCELAR") { statusInt = 4; }
 
-                controllerChips.cadastra(imei,operadora,data,cliId,statusICodigo);
-                MessageBox.Show("Cadastrado com sucesso!");
+                Chip chip = new Chip();
+
+                chip.chip_id = int.Parse(txtChipId.Text);
+                chip.chip_imei = txtImei.Text;
+                chip.chip_operadora = cmbOperadora.Text;
+                chip.chip_data_envio = DateTime.Parse(dtpDataEnvio.Text);
+                chip.chip_status = statusInt;
+                chip.cli_id = long.Parse(txtCliId.Text);
+
+                controllerChips.saveOrUpdate(chip);
                 preecheDataGridChips();
             }else
             {
@@ -52,9 +56,9 @@ namespace Monial
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if(!txtCodigoChip.Text.Equals(""))
+            if(!txtChipId.Text.Equals(""))
             {
-                controllerChips.exclui(int.Parse(txtCodigoChip.Text));
+                controllerChips.delete(int.Parse(txtChipId.Text));
                 preecheDataGridChips();
             }
             else
@@ -69,23 +73,23 @@ namespace Monial
 
             try
             {//where chip.chip_status == 1
-                var query = (from chip in db.Chip  select chip);
 
-                foreach (var item in query)
-                {
+                    //foreach (var item in query)
+                    //{
 
-                }
+                    //}
 
-                foreach (var item in query)
-                {
-                    String status = "";
-                    if (item.chip_status == 1) { status = "ATIVO"; }
-                    if (item.chip_status == 2) { status = "ESTOQUE"; }
-                    if (item.chip_status == 3) { status = "CANCELADO"; }
-                    if (item.chip_status == 4) { status = "CANCELAR"; }
+                    foreach (var item in controllerChips.filtrar(new Chip(chip_imei),"chip_imei"))
+                    {
+                        String status = "";
+                        if (item.chip_status == 1) { status = "ATIVO"; }
+                        if (item.chip_status == 2) { status = "ESTOQUE"; }
+                        if (item.chip_status == 3) { status = "CANCELADO"; }
+                        if (item.chip_status == 4) { status = "CANCELAR"; }
 
-                dataGridChips.Rows.Add(item.chip_id,item.Cliente.cli_id,item.Cliente.cli_nome,item.chip_imei,item.chip_data_envio.Value.ToShortDateString(),item.chip_operadora,status);
-                }
+                        dataGridChips.Rows.Add(item.chip_id, item.Cliente.cli_id, item.Cliente.cli_nome, item.chip_imei, item.chip_data_envio.Value.ToShortDateString(), item.chip_operadora, status);
+                    }
+                
             }
             catch (Exception ex)
             {
@@ -116,7 +120,7 @@ namespace Monial
 
             DataGridViewRow rowData = dataGridChips.Rows[linha];
 
-            txtCodigoChip.Text = rowData.Cells["chip_id"].Value.ToString();
+            txtChipId.Text = rowData.Cells["chip_id"].Value.ToString();
             txtCliId.Text = rowData.Cells["cli_id"].Value.ToString();
             txtCliNome.Text = rowData.Cells["cli_nome"].Value.ToString();
             txtImei.Text = rowData.Cells["chip_imei"].Value.ToString();
@@ -164,6 +168,17 @@ namespace Monial
         {
             abilitaCampos();
             limpaCampos();
+            txtChipId.Text = "0";
+        }
+
+        private void btnBuscarChip_Click(object sender, EventArgs e)
+        {
+
+
+
+
+
+
         }
     }
 }

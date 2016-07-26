@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,45 +9,54 @@ namespace Monial
 {
     class ControllerChips
     {
-        monialEntities db = new monialEntities();
-
-        public void cadastra(String imei, String operadora, DateTime dataEnvio, Double status, long cliID)
+        public void saveOrUpdate(Chip chip)
         {
-            try
+            using (var db = new monialEntities())
             {
-                var chip = db.Chip.Create();
+                try
+                {
+                    db.Entry(chip).State = chip.chip_id == 0 ?
+                               EntityState.Added :
+                               EntityState.Modified;
 
-                chip.chip_imei = imei;
-                chip.chip_operadora = operadora;
-                chip.chip_data_envio = dataEnvio;
-                chip.chip_status = status;
-                chip.cli_id = cliID;
+                    db.SaveChanges();
 
-                db.Chip.Add(chip);
-                db.SaveChanges();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
 
         }
 
-        public void exclui(int chipID)
+        public void delete(int chipID)
         {
-            try
+            using (var db = new monialEntities())
             {
-                var excluindoChip = db.Chip.Find(chipID);
-                db.Chip.Remove(excluindoChip);
-                db.SaveChanges();
+                try
+                {
+                    var excluindoChip = db.Chip.Find(chipID);
+                    db.Chip.Remove(excluindoChip);
+                    db.SaveChanges();
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
 
+        }
+
+        public List<Chip> filtrar(String filtro, Chip coluna)
+        {
+            var db = new monialEntities();
+                
+            
+                var query = (from Chip in db.Chip where coluna.chip_imei.Contains("123") select Chip).ToList();
+            
+            return query;
         }
     }
 }
