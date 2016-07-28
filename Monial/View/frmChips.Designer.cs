@@ -57,7 +57,7 @@
             this.lblCodigoChip = new System.Windows.Forms.Label();
             this.txtBuscarChip = new System.Windows.Forms.TextBox();
             this.lblbuscar = new System.Windows.Forms.Label();
-            this.cmbBuscar = new System.Windows.Forms.ComboBox();
+            this.cmbBuscarChips = new System.Windows.Forms.ComboBox();
             this.btnBuscarChip = new System.Windows.Forms.Button();
             this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.panelChips.SuspendLayout();
@@ -135,7 +135,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelChips.Controls.Add(this.btnBuscarCliente);
             this.panelChips.Controls.Add(this.btnBuscarChip);
-            this.panelChips.Controls.Add(this.cmbBuscar);
+            this.panelChips.Controls.Add(this.cmbBuscarChips);
             this.panelChips.Controls.Add(this.lblbuscar);
             this.panelChips.Controls.Add(this.txtBuscarChip);
             this.panelChips.Controls.Add(this.txtCliId);
@@ -374,18 +374,18 @@
             // 
             // cmbBuscar
             // 
-            this.cmbBuscar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbBuscar.FormattingEnabled = true;
-            this.cmbBuscar.Items.AddRange(new object[] {
+            this.cmbBuscarChips.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBuscarChips.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbBuscarChips.FormattingEnabled = true;
+            this.cmbBuscarChips.Items.AddRange(new object[] {
             "Imei",
             "Operadora",
             "Nome do Cliente",
             "Código do Cliente"});
-            this.cmbBuscar.Location = new System.Drawing.Point(724, 118);
-            this.cmbBuscar.Name = "cmbBuscar";
-            this.cmbBuscar.Size = new System.Drawing.Size(175, 24);
-            this.cmbBuscar.TabIndex = 53;
+            this.cmbBuscarChips.Location = new System.Drawing.Point(724, 118);
+            this.cmbBuscarChips.Name = "cmbBuscar";
+            this.cmbBuscarChips.Size = new System.Drawing.Size(175, 24);
+            this.cmbBuscarChips.TabIndex = 53;
             // 
             // btnBuscarChip
             // 
@@ -454,7 +454,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chip_operadora;
         private System.Windows.Forms.DataGridViewTextBoxColumn chip_status;
         private System.Windows.Forms.Button btnBuscarChip;
-        private System.Windows.Forms.ComboBox cmbBuscar;
+        private System.Windows.Forms.ComboBox cmbBuscarChips;
         private System.Windows.Forms.Label lblbuscar;
         private System.Windows.Forms.TextBox txtBuscarChip;
         private System.Windows.Forms.Button btnBuscarCliente;

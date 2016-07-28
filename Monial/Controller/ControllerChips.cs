@@ -52,8 +52,7 @@ namespace Monial
         }
 
         public List<Chip> filtraDadosChips(String condicao, String filtro)
-        {//where Chip.chip_imei.Contains("123")
-
+        {
                 switch (condicao)
                 {
                     case "Código do Cliente":
@@ -67,11 +66,10 @@ namespace Monial
                 }
 
                 return listaDeChips;
-            
         }
 
         public List<Chip> carregarDadosChips()
-        {//where Chip.chip_imei.Contains("123")
+        {
             var db = new monialEntities();
 
             if (listaDeChips.Count > 0)

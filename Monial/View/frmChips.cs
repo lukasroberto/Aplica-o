@@ -23,7 +23,7 @@ namespace Monial
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (validaCampos() == true)
+            if (validaCamposCadastroChips() == true)
             {
                 String status = cmbStatus.Text;
                 int statusInt = 0;
@@ -74,7 +74,6 @@ namespace Monial
         private void preecheDataGridChips(List<Chip> listaDeChips)
         {
             dataGridChips.Rows.Clear();
-
             try
             {
                 foreach (var item in listaDeChips)
@@ -87,7 +86,6 @@ namespace Monial
 
                     dataGridChips.Rows.Add(item.chip_id, item.Cliente.cli_id, item.Cliente.cli_nome, item.chip_imei, item.chip_data_envio.Value.ToShortDateString(), item.chip_operadora, status);
                 }
-
             }
             catch (Exception ex)
             {
@@ -95,13 +93,32 @@ namespace Monial
             }
         }
 
-        private bool validaCampos()
+        private bool validaCamposCadastroChips()
         {
             if (txtCliNome.Text.Equals("") || txtImei.Text == "" || cmbOperadora.Text == "" || cmbStatus.Text == "" || dtpDataEnvio.Text == "")
             {
                 return false;
             }
             return true;
+        }
+
+        private bool validaCamposBuscaChips()
+        {
+            switch (cmbBuscarChips.Text)
+            {
+                case "Código do Cliente":
+                    if (!Char.IsDigit(txtBuscarChip.Text, 0))
+                    {
+                        return false;
+                    }
+                    return true;
+                case "Imei":
+                    if (!Char.IsDigit(txtBuscarChip.Text, 0))
+                    {
+                        return false;
+                    }
+                    return true;
+            }return true;
         }
 
 
@@ -171,11 +188,15 @@ namespace Monial
 
         private void btnBuscarChip_Click(object sender, EventArgs e)
         {
+            if (validaCamposBuscaChips() == true)
+            {
+                var listaDeChipsParaFiltrar = controllerChips.filtraDadosChips(cmbBuscarChips.Text, txtBuscarChip.Text);
 
-            List<Chip> listaDeChips2 = new List<Chip>();
-            listaDeChips2 = controllerChips.filtraDadosChips(cmbBuscar.Text,txtBuscarChip.Text);
-
-            preecheDataGridChips(listaDeChips2);
+                preecheDataGridChips(listaDeChipsParaFiltrar);
+            }else
+            {
+                MessageBox.Show("Para pesquisar Imei ou Código do Cliente utilize apenas números.");
+            }
 
         }
     }
