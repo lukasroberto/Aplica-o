@@ -9,6 +9,8 @@ namespace Monial
 {
     class ControllerChips
     {
+        private List<Chip> listaDeChips = new List<Chip>();
+
         public void saveOrUpdate(Chip chip)
         {
             using (var db = new monialEntities())
@@ -49,14 +51,49 @@ namespace Monial
 
         }
 
-        public List<Chip> filtrar(String filtro, Chip coluna)
-        {
-            var db = new monialEntities();
-                
+        public List<Chip> filtraDadosChips(String condicao, String filtro)
+        {//where Chip.chip_imei.Contains("123")
+
+                switch (condicao)
+                {
+                    case "Código do Cliente":
+                        return (from Chip in listaDeChips where Chip.Cliente.cli_id == int.Parse(filtro) select Chip).ToList();
+                    case "Operadora":
+                        return (from Chip in listaDeChips where Chip.chip_operadora.Contains(filtro.ToUpper()) select Chip).ToList();
+                    case "Nome do Cliente":
+                        return (from Chip in listaDeChips where Chip.Cliente.cli_nome.ToLower().Contains(filtro.ToLower()) select Chip).ToList();
+                    case "Imei":
+                        return (from Chip in listaDeChips where Chip.chip_imei.Contains(filtro) select Chip).ToList();
+                }
+
+                return listaDeChips;
             
-                var query = (from Chip in db.Chip where coluna.chip_imei.Contains("123") select Chip).ToList();
-            
-            return query;
         }
+
+        public List<Chip> carregarDadosChips()
+        {//where Chip.chip_imei.Contains("123")
+            var db = new monialEntities();
+
+            if (listaDeChips.Count > 0)
+            {
+                return listaDeChips;
+            }
+            else
+            {
+                listaDeChips = (from Chip in db.Chip select Chip).ToList();
+
+                return listaDeChips;
+            }
+        }
+
+        public void linpaListaDeChips()
+        {
+            if (listaDeChips.Count > 0)
+            {
+                listaDeChips.Clear();
+            }
+        }
+
     }
 }
+

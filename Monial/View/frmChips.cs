@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,7 +14,7 @@ namespace Monial
         public frmChips()
         {
             InitializeComponent();
-            preecheDataGridChips();
+            preecheDataGridChips(controllerChips.carregarDadosChips());
         }
         public Panel acessaChips()
         {
@@ -23,7 +24,7 @@ namespace Monial
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (validaCampos() == true)
-            { 
+            {
                 String status = cmbStatus.Text;
                 int statusInt = 0;
 
@@ -42,8 +43,10 @@ namespace Monial
                 chip.cli_id = long.Parse(txtCliId.Text);
 
                 controllerChips.saveOrUpdate(chip);
-                preecheDataGridChips();
-            }else
+                controllerChips.linpaListaDeChips();
+                preecheDataGridChips(controllerChips.carregarDadosChips());
+            }
+            else
             {
                 MessageBox.Show("Por Favor, Preencha todos os Campos!");
             }
@@ -56,10 +59,11 @@ namespace Monial
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if(!txtChipId.Text.Equals(""))
+            if (!txtChipId.Text.Equals(""))
             {
                 controllerChips.delete(int.Parse(txtChipId.Text));
-                preecheDataGridChips();
+
+                preecheDataGridChips(controllerChips.carregarDadosChips());
             }
             else
             {
@@ -67,29 +71,23 @@ namespace Monial
             }
         }
 
-        private void preecheDataGridChips()
+        private void preecheDataGridChips(List<Chip> listaDeChips)
         {
             dataGridChips.Rows.Clear();
 
             try
-            {//where chip.chip_status == 1
+            {
+                foreach (var item in listaDeChips)
+                {
+                    String status = "";
+                    if (item.chip_status == 1) { status = "ATIVO"; }
+                    if (item.chip_status == 2) { status = "ESTOQUE"; }
+                    if (item.chip_status == 3) { status = "CANCELADO"; }
+                    if (item.chip_status == 4) { status = "CANCELAR"; }
 
-                    //foreach (var item in query)
-                    //{
+                    dataGridChips.Rows.Add(item.chip_id, item.Cliente.cli_id, item.Cliente.cli_nome, item.chip_imei, item.chip_data_envio.Value.ToShortDateString(), item.chip_operadora, status);
+                }
 
-                    //}
-
-                    foreach (var item in controllerChips.filtrar(new Chip(chip_imei),"chip_imei"))
-                    {
-                        String status = "";
-                        if (item.chip_status == 1) { status = "ATIVO"; }
-                        if (item.chip_status == 2) { status = "ESTOQUE"; }
-                        if (item.chip_status == 3) { status = "CANCELADO"; }
-                        if (item.chip_status == 4) { status = "CANCELAR"; }
-
-                        dataGridChips.Rows.Add(item.chip_id, item.Cliente.cli_id, item.Cliente.cli_nome, item.chip_imei, item.chip_data_envio.Value.ToShortDateString(), item.chip_operadora, status);
-                    }
-                
             }
             catch (Exception ex)
             {
@@ -103,7 +101,7 @@ namespace Monial
             {
                 return false;
             }
-        return true;
+            return true;
         }
 
 
@@ -174,10 +172,10 @@ namespace Monial
         private void btnBuscarChip_Click(object sender, EventArgs e)
         {
 
+            List<Chip> listaDeChips2 = new List<Chip>();
+            listaDeChips2 = controllerChips.filtraDadosChips(cmbBuscar.Text,txtBuscarChip.Text);
 
-
-
-
+            preecheDataGridChips(listaDeChips2);
 
         }
     }
