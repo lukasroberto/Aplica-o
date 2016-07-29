@@ -16,7 +16,7 @@ namespace Monial
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmChips());
+            Application.Run(new frmSelecionarClientes());
         }
     }
 }

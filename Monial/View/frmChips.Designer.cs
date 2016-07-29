@@ -34,6 +34,11 @@
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.panelChips = new System.Windows.Forms.Panel();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
+            this.btnBuscarChip = new System.Windows.Forms.Button();
+            this.cmbBuscarChips = new System.Windows.Forms.ComboBox();
+            this.lblbuscar = new System.Windows.Forms.Label();
+            this.txtBuscarChip = new System.Windows.Forms.TextBox();
             this.txtCliId = new System.Windows.Forms.TextBox();
             this.dataGridChips = new System.Windows.Forms.DataGridView();
             this.chip_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,11 +60,6 @@
             this.lblClienteInstalado = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblCodigoChip = new System.Windows.Forms.Label();
-            this.txtBuscarChip = new System.Windows.Forms.TextBox();
-            this.lblbuscar = new System.Windows.Forms.Label();
-            this.cmbBuscarChips = new System.Windows.Forms.ComboBox();
-            this.btnBuscarChip = new System.Windows.Forms.Button();
-            this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.panelChips.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridChips)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(879, 508);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(90, 55);
-            this.btnCancelar.TabIndex = 15;
+            this.btnCancelar.TabIndex = 16;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -83,7 +83,7 @@
             this.btnNovo.Location = new System.Drawing.Point(18, 508);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(80, 55);
-            this.btnNovo.TabIndex = 28;
+            this.btnNovo.TabIndex = 12;
             this.btnNovo.Text = "Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
             this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
@@ -95,7 +95,7 @@
             this.btnAlterar.Location = new System.Drawing.Point(104, 508);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(80, 55);
-            this.btnAlterar.TabIndex = 29;
+            this.btnAlterar.TabIndex = 13;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
             this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
@@ -109,7 +109,7 @@
             this.btnExcluir.Location = new System.Drawing.Point(190, 508);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(80, 55);
-            this.btnExcluir.TabIndex = 30;
+            this.btnExcluir.TabIndex = 14;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = false;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
@@ -123,7 +123,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(794, 508);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(79, 55);
-            this.btnSalvar.TabIndex = 31;
+            this.btnSalvar.TabIndex = 15;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -162,13 +162,71 @@
             this.panelChips.Size = new System.Drawing.Size(987, 579);
             this.panelChips.TabIndex = 36;
             // 
+            // btnBuscarCliente
+            // 
+            this.btnBuscarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarCliente.Location = new System.Drawing.Point(459, 30);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(66, 24);
+            this.btnBuscarCliente.TabIndex = 6;
+            this.btnBuscarCliente.Text = "Buscar";
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscarChip
+            // 
+            this.btnBuscarChip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscarChip.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarChip.Location = new System.Drawing.Point(905, 118);
+            this.btnBuscarChip.Name = "btnBuscarChip";
+            this.btnBuscarChip.Size = new System.Drawing.Size(66, 24);
+            this.btnBuscarChip.TabIndex = 10;
+            this.btnBuscarChip.Text = "Buscar";
+            this.btnBuscarChip.UseVisualStyleBackColor = true;
+            this.btnBuscarChip.Click += new System.EventHandler(this.btnBuscarChip_Click);
+            // 
+            // cmbBuscarChips
+            // 
+            this.cmbBuscarChips.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbBuscarChips.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBuscarChips.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbBuscarChips.FormattingEnabled = true;
+            this.cmbBuscarChips.Items.AddRange(new object[] {
+            "Imei",
+            "Operadora",
+            "Nome do Cliente",
+            "Código do Cliente"});
+            this.cmbBuscarChips.Location = new System.Drawing.Point(724, 118);
+            this.cmbBuscarChips.Name = "cmbBuscarChips";
+            this.cmbBuscarChips.Size = new System.Drawing.Size(175, 24);
+            this.cmbBuscarChips.TabIndex = 9;
+            // 
+            // lblbuscar
+            // 
+            this.lblbuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblbuscar.AutoSize = true;
+            this.lblbuscar.Location = new System.Drawing.Point(517, 123);
+            this.lblbuscar.Name = "lblbuscar";
+            this.lblbuscar.Size = new System.Drawing.Size(64, 13);
+            this.lblbuscar.TabIndex = 52;
+            this.lblbuscar.Text = "Buscar Chip";
+            // 
+            // txtBuscarChip
+            // 
+            this.txtBuscarChip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscarChip.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.txtBuscarChip.Location = new System.Drawing.Point(587, 118);
+            this.txtBuscarChip.Name = "txtBuscarChip";
+            this.txtBuscarChip.Size = new System.Drawing.Size(131, 23);
+            this.txtBuscarChip.TabIndex = 8;
+            this.txtBuscarChip.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscarChip_KeyUp);
+            // 
             // txtCliId
             // 
             this.txtCliId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.txtCliId.Location = new System.Drawing.Point(402, 31);
             this.txtCliId.Name = "txtCliId";
             this.txtCliId.Size = new System.Drawing.Size(54, 23);
-            this.txtCliId.TabIndex = 50;
+            this.txtCliId.TabIndex = 5;
             // 
             // dataGridChips
             // 
@@ -195,7 +253,7 @@
             this.dataGridChips.Name = "dataGridChips";
             this.dataGridChips.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridChips.Size = new System.Drawing.Size(951, 354);
-            this.dataGridChips.TabIndex = 49;
+            this.dataGridChips.TabIndex = 11;
             this.dataGridChips.SelectionChanged += new System.EventHandler(this.dataGridChips_SelectionChanged);
             // 
             // chip_id
@@ -250,7 +308,7 @@
             this.cmbOperadora.Location = new System.Drawing.Point(254, 31);
             this.cmbOperadora.Name = "cmbOperadora";
             this.cmbOperadora.Size = new System.Drawing.Size(121, 24);
-            this.cmbOperadora.TabIndex = 48;
+            this.cmbOperadora.TabIndex = 3;
             // 
             // dtpDataEnvio
             // 
@@ -259,7 +317,7 @@
             this.dtpDataEnvio.Location = new System.Drawing.Point(254, 78);
             this.dtpDataEnvio.Name = "dtpDataEnvio";
             this.dtpDataEnvio.Size = new System.Drawing.Size(120, 23);
-            this.dtpDataEnvio.TabIndex = 47;
+            this.dtpDataEnvio.TabIndex = 4;
             // 
             // cmbStatus
             // 
@@ -274,10 +332,11 @@
             this.cmbStatus.Location = new System.Drawing.Point(402, 77);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(175, 24);
-            this.cmbStatus.TabIndex = 46;
+            this.cmbStatus.TabIndex = 7;
             // 
             // txtCliNome
             // 
+            this.txtCliNome.Enabled = false;
             this.txtCliNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.txtCliNome.Location = new System.Drawing.Point(528, 31);
             this.txtCliNome.Name = "txtCliNome";
@@ -290,7 +349,7 @@
             this.txtImei.Location = new System.Drawing.Point(32, 78);
             this.txtImei.Name = "txtImei";
             this.txtImei.Size = new System.Drawing.Size(199, 23);
-            this.txtImei.TabIndex = 43;
+            this.txtImei.TabIndex = 2;
             // 
             // txtChipId
             // 
@@ -299,7 +358,7 @@
             this.txtChipId.Location = new System.Drawing.Point(32, 31);
             this.txtChipId.Name = "txtChipId";
             this.txtChipId.Size = new System.Drawing.Size(100, 23);
-            this.txtChipId.TabIndex = 42;
+            this.txtChipId.TabIndex = 1;
             // 
             // lblImei
             // 
@@ -354,61 +413,6 @@
             this.lblCodigoChip.Size = new System.Drawing.Size(40, 13);
             this.lblCodigoChip.TabIndex = 36;
             this.lblCodigoChip.Text = "Codigo";
-            // 
-            // txtBuscarChip
-            // 
-            this.txtBuscarChip.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.txtBuscarChip.Location = new System.Drawing.Point(587, 118);
-            this.txtBuscarChip.Name = "txtBuscarChip";
-            this.txtBuscarChip.Size = new System.Drawing.Size(131, 23);
-            this.txtBuscarChip.TabIndex = 51;
-            // 
-            // lblbuscar
-            // 
-            this.lblbuscar.AutoSize = true;
-            this.lblbuscar.Location = new System.Drawing.Point(517, 123);
-            this.lblbuscar.Name = "lblbuscar";
-            this.lblbuscar.Size = new System.Drawing.Size(64, 13);
-            this.lblbuscar.TabIndex = 52;
-            this.lblbuscar.Text = "Buscar Chip";
-            // 
-            // cmbBuscar
-            // 
-            this.cmbBuscarChips.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBuscarChips.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbBuscarChips.FormattingEnabled = true;
-            this.cmbBuscarChips.Items.AddRange(new object[] {
-            "Imei",
-            "Operadora",
-            "Nome do Cliente",
-            "Código do Cliente"});
-            this.cmbBuscarChips.Location = new System.Drawing.Point(724, 118);
-            this.cmbBuscarChips.Name = "cmbBuscar";
-            this.cmbBuscarChips.Size = new System.Drawing.Size(175, 24);
-            this.cmbBuscarChips.TabIndex = 53;
-            // 
-            // btnBuscarChip
-            // 
-            this.btnBuscarChip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBuscarChip.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarChip.Location = new System.Drawing.Point(905, 118);
-            this.btnBuscarChip.Name = "btnBuscarChip";
-            this.btnBuscarChip.Size = new System.Drawing.Size(66, 24);
-            this.btnBuscarChip.TabIndex = 54;
-            this.btnBuscarChip.Text = "Buscar";
-            this.btnBuscarChip.UseVisualStyleBackColor = true;
-            this.btnBuscarChip.Click += new System.EventHandler(this.btnBuscarChip_Click);
-            // 
-            // btnBuscarCliente
-            // 
-            this.btnBuscarCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBuscarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarCliente.Location = new System.Drawing.Point(459, 30);
-            this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(66, 24);
-            this.btnBuscarCliente.TabIndex = 55;
-            this.btnBuscarCliente.Text = "Buscar";
-            this.btnBuscarCliente.UseVisualStyleBackColor = true;
             // 
             // frmChips
             // 

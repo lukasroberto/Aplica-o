@@ -53,6 +53,8 @@ namespace Monial
 
         public List<Chip> filtraDadosChips(String condicao, String filtro)
         {
+            if (!String.IsNullOrEmpty(filtro))
+            {
                 switch (condicao)
                 {
                     case "Código do Cliente":
@@ -64,6 +66,7 @@ namespace Monial
                     case "Imei":
                         return (from Chip in listaDeChips where Chip.chip_imei.Contains(filtro) select Chip).ToList();
                 }
+            }
 
                 return listaDeChips;
         }

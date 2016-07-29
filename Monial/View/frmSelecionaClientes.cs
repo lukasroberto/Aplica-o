@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Monial
 {
-    public partial class Form1 : Form
+    public partial class frmSelecionarClientes : Form
     {
-        public Form1()
+        public frmSelecionarClientes()
         {
             InitializeComponent();
+        }
+
+        private void btnSelecionarCliente_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

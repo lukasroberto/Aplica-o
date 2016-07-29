@@ -45,6 +45,9 @@ namespace Monial
                 controllerChips.saveOrUpdate(chip);
                 controllerChips.linpaListaDeChips();
                 preecheDataGridChips(controllerChips.carregarDadosChips());
+                btnAlterar.Enabled = true;
+                btnExcluir.Enabled = true;
+                btnNovo.Enabled = true;
             }
             else
             {
@@ -102,29 +105,39 @@ namespace Monial
             return true;
         }
 
-        private bool validaCamposBuscaChips()
+        private String validaCamposBuscaChips()
         {
             switch (cmbBuscarChips.Text)
             {
                 case "Código do Cliente":
-                    if (!Char.IsDigit(txtBuscarChip.Text, 0))
+                    if (!String.IsNullOrEmpty(txtBuscarChip.Text))
                     {
-                        return false;
+                        if (!Char.IsDigit(txtBuscarChip.Text, 0))
+                        {
+                            return "Para pesquisar Código do Cliente utilize apenas números.";
+                        }
                     }
-                    return true;
+                    return "ok";
                 case "Imei":
-                    if (!Char.IsDigit(txtBuscarChip.Text, 0))
+                    if (!String.IsNullOrEmpty(txtBuscarChip.Text))
                     {
-                        return false;
+                        if (!Char.IsDigit(txtBuscarChip.Text, 0))
+                        {
+                            return "Para pesquisar Imei utilize apenas números.";
+                        }
                     }
-                    return true;
-            }return true;
+                    return "ok";
+            }
+            return "ok";
         }
 
 
         private void dataGridChips_SelectionChanged(object sender, EventArgs e)
         {
             desabilitaCampos();
+            btnAlterar.Enabled = true;
+            btnExcluir.Enabled = true;
+            btnNovo.Enabled = true;
             var linha = dataGridChips.CurrentRow.Index;
 
             //Se linha é menor que -1 então retorna
@@ -177,27 +190,37 @@ namespace Monial
         private void btnAlterar_Click(object sender, EventArgs e)
         {
             abilitaCampos();
+            btnExcluir.Enabled = false;
+            btnNovo.Enabled = false;
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
             abilitaCampos();
             limpaCampos();
+            btnAlterar.Enabled = false;
+            btnExcluir.Enabled = false;
             txtChipId.Text = "0";
         }
 
         private void btnBuscarChip_Click(object sender, EventArgs e)
+        { filtroChips(); }
+
+        private void txtBuscarChip_KeyUp(object sender, KeyEventArgs e)
+        { filtroChips(); }
+
+        private void filtroChips()
         {
-            if (validaCamposBuscaChips() == true)
+            if (validaCamposBuscaChips() == "ok")
             {
                 var listaDeChipsParaFiltrar = controllerChips.filtraDadosChips(cmbBuscarChips.Text, txtBuscarChip.Text);
 
                 preecheDataGridChips(listaDeChipsParaFiltrar);
-            }else
-            {
-                MessageBox.Show("Para pesquisar Imei ou Código do Cliente utilize apenas números.");
             }
-
+            else
+            {
+                MessageBox.Show(validaCamposBuscaChips());
+            }
         }
     }
 }
